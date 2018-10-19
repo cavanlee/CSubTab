@@ -12,6 +12,7 @@
 		865EDCF8217A1BFD00CAFEFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 865EDCF6217A1BFD00CAFEFB /* Main.storyboard */; };
 		865EDCFA217A1BFE00CAFEFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 865EDCF9217A1BFE00CAFEFB /* Assets.xcassets */; };
 		865EDCFD217A1BFE00CAFEFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 865EDCFB217A1BFE00CAFEFB /* LaunchScreen.storyboard */; };
+		865EDD05217A1C2000CAFEFB /* CSubTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865EDD04217A1C2000CAFEFB /* CSubTab.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		865EDCF9217A1BFE00CAFEFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		865EDCFC217A1BFE00CAFEFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		865EDCFE217A1BFE00CAFEFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		865EDD04217A1C2000CAFEFB /* CSubTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSubTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				865EDCF2217A1BFD00CAFEFB /* AppDelegate.swift */,
 				865EDCF4217A1BFD00CAFEFB /* ViewController.swift */,
+				865EDD04217A1C2000CAFEFB /* CSubTab.swift */,
 				865EDCF6217A1BFD00CAFEFB /* Main.storyboard */,
 				865EDCF9217A1BFE00CAFEFB /* Assets.xcassets */,
 				865EDCFB217A1BFE00CAFEFB /* LaunchScreen.storyboard */,
@@ -90,6 +93,7 @@
 		865EDCE7217A1BFD00CAFEFB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = C;
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = cavanlee;
@@ -137,6 +141,7 @@
 			files = (
 				865EDCF5217A1BFD00CAFEFB /* ViewController.swift in Sources */,
 				865EDCF3217A1BFD00CAFEFB /* AppDelegate.swift in Sources */,
+				865EDD05217A1C2000CAFEFB /* CSubTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
