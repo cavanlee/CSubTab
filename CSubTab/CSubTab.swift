@@ -28,6 +28,12 @@ class CSubTab: UIView {
         
     }
     
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var fitSize = super.sizeThatFits(size)
+        fitSize.height = 36.0
+        return fitSize
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
