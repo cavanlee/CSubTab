@@ -13,8 +13,38 @@ class CSubTab: UIView {
     var scrollView = UIScrollView.init()
     var indicateLineLayer = CAShapeLayer.init()
     
-    func commonInit() {
+    var itemWidth: CGFloat = 80.0
+    let indicateLineHeight: CGFloat = 2.0
+    let indicateWidthRate: CGFloat = 0.4 // 相对于Item width 的比例
+    
+    var items: [String] = [] {
+        didSet {
+            
+            if items.count > 0 {
+                itemWidth = items.count > 4 ? itemWidth : UIScreen.main.bounds.width / CGFloat(items.count)
+                scrollView.contentSize = CGSize(width: itemWidth * CGFloat(items.count), height: scrollView.frame.height)
+                for i in 0..<items.count {
+                    let itemBtn = UIButton.init(type: .custom)
+                    itemBtn.setTitle(items[i], for: .normal)
+                    itemBtn.setTitleColor(UIColor.init(red: 192.0 / 255.0, green: 192.0 / 255.0, blue: 192.0 / 255.0, alpha: 1), for: .normal)
+                    itemBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                    itemBtn.frame = CGRect(x: CGFloat(i) * itemWidth, y: 0, width: itemWidth, height: frame.height - indicateLineHeight)
+                    scrollView.addSubview(itemBtn)
+                }
+                indicateLineLayer.frame = CGRect(x: 0, y: frame.height - indicateLineHeight, width: itemWidth * indicateWidthRate, height: indicateLineHeight)
+                indicateLineLayer.position.x = itemWidth * 0.5
+            }
+            
+        }
+    }
+    
+    private func commonInit() {
+        backgroundColor = UIColor.white
+        
+        scrollView.showsHorizontalScrollIndicator = false
         addSubview(scrollView)
+        
+        indicateLineLayer.backgroundColor = UIColor.red.cgColor
         layer.addSublayer(indicateLineLayer)
     }
     override init(frame: CGRect) {
@@ -23,9 +53,18 @@ class CSubTab: UIView {
         commonInit()
     }
     
+    override var frame: CGRect {
+        didSet {
+            super.frame = CGRect(origin: frame.origin, size: CGSize(width: frame.width, height: 36))
+        }
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        scrollView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - indicateLineHeight)
+        indicateLineLayer.frame = CGRect(x: 0, y: frame.height - indicateLineHeight, width: itemWidth * indicateWidthRate, height: indicateLineHeight)
+        indicateLineLayer.position.x = itemWidth * 0.5
+
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -45,7 +84,7 @@ class CSubTab: UIView {
         let bottomLinePath = UIBezierPath.init()
         bottomLinePath.move(to: CGPoint(x: 0, y: rect.height - 0.5))
         bottomLinePath.addLine(to: CGPoint(x: rect.width, y: rect.height - 0.5))
-        UIColor.gray.setStroke()
+        UIColor.init(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1).setStroke()
         bottomLinePath.stroke()
         bottomLinePath.close()
     }

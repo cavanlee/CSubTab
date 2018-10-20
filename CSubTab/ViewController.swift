@@ -10,9 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let subTab = CSubTab.init(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.width, height: 0))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        title = "导航栏"
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage.init(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage.init()
+        
+        subTab.items = ["Item01", "Item02", "Item03", "Item04", "Item05"]
+        subTab.sizeToFit()
+        navigationController?.view.addSubview(subTab)
     }
 
 
