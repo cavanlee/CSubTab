@@ -112,12 +112,6 @@ class CSubTab: UIView, UIScrollViewDelegate {
         
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetX = scrollView.contentOffset.x
-//        if offsetX.truncatingRemainder(dividingBy: itemWidth) > 0 {
-//            scrollView.contentOffset.x = ceil(offsetX / itemWidth) * itemWidth
-//        }
-    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x
