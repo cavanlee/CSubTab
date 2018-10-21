@@ -8,12 +8,12 @@
 
 import UIKit
 
-class CSubTab: UIView {
+class CSubTab: UIView, UIScrollViewDelegate {
 
     var scrollView = UIScrollView.init()
     var indicateLineLayer = CAShapeLayer.init()
     
-    var itemWidth: CGFloat = 80.0
+    var itemWidth: CGFloat = UIScreen.main.bounds.width / 4
     let indicateLineHeight: CGFloat = 2.0
     let indicateWidthRate: CGFloat = 0.4 // 相对于Item width 的比例
     
@@ -27,13 +27,16 @@ class CSubTab: UIView {
                     let itemBtn = UIButton.init(type: .custom)
                     itemBtn.setTitle(items[i], for: .normal)
                     itemBtn.setTitleColor(UIColor.init(red: 192.0 / 255.0, green: 192.0 / 255.0, blue: 192.0 / 255.0, alpha: 1), for: .normal)
+                    itemBtn.setTitleColor(UIColor.red, for: .selected)
+                    itemBtn.isSelected = i==0
                     itemBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
                     itemBtn.frame = CGRect(x: CGFloat(i) * itemWidth, y: 0, width: itemWidth, height: frame.height - indicateLineHeight)
                     itemBtn.addTarget(self, action: #selector(itemBtnAction(sender:)), for: .touchUpInside)
                     scrollView.addSubview(itemBtn)
+                
                 }
-                indicateLineLayer.frame = CGRect(x: 0, y: frame.height - indicateLineHeight, width: itemWidth * indicateWidthRate, height: indicateLineHeight)
-                indicateLineLayer.position.x = itemWidth * 0.5
+
+                
             }
             
         }
@@ -43,10 +46,12 @@ class CSubTab: UIView {
         backgroundColor = UIColor.white
         
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.delegate = self
+        scrollView.bounces = false
         addSubview(scrollView)
         
         indicateLineLayer.backgroundColor = UIColor.red.cgColor
-        layer.addSublayer(indicateLineLayer)
+        scrollView.layer.addSublayer(indicateLineLayer)
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,8 +67,8 @@ class CSubTab: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        scrollView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - indicateLineHeight)
-        indicateLineLayer.frame = CGRect(x: 0, y: frame.height - indicateLineHeight, width: itemWidth * indicateWidthRate, height: indicateLineHeight)
+        scrollView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - 0.5)
+        indicateLineLayer.frame = CGRect(x: 0, y: scrollView.frame.height - indicateLineHeight, width: itemWidth * indicateWidthRate, height: indicateLineHeight)
         indicateLineLayer.position.x = itemWidth * 0.5
 
     }
@@ -96,8 +101,31 @@ class CSubTab: UIView {
     
     @objc func itemBtnAction(sender: UIButton) {
         
-        
+        scrollView.subviews.forEach { (view) in
+            if view.isKind(of: UIButton.self) {
+                let button: UIButton = view as! UIButton
+                button.isSelected = false
+            }
+        }
+        sender.isSelected = !sender.isSelected
+        indicateLineLayer.position.x = sender.center.x
         
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetX = scrollView.contentOffset.x
+//        if offsetX.truncatingRemainder(dividingBy: itemWidth) > 0 {
+//            scrollView.contentOffset.x = ceil(offsetX / itemWidth) * itemWidth
+//        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let offsetX = scrollView.contentOffset.x
+        if offsetX.truncatingRemainder(dividingBy: itemWidth) > 0 {
+            scrollView.contentOffset.x = ceil(offsetX / itemWidth) * itemWidth
+        }
+    }
+    
+    
 
 }

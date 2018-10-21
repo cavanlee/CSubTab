@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage.init(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage.init()
         
-        subTab.items = ["Item01", "Item02", "Item03", "Item04", "Item05"]
+        subTab.items = ["Item01", "Item02", "Item03", "Item04", "Item05", "Item06", "Item07", "Item08", "Item09", "Item01", "Item02", "Item03", "Item04", "Item05", "Item06", "Item07", "Item08", "Item09"]
         subTab.sizeToFit()
         navigationController?.view.addSubview(subTab)
     }
