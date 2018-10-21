@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let subTab = CSubTab.init(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.width, height: 0))
+    let subTab = CSubTab.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0))
     
     override func viewDidLoad() {
         super.viewDidLoad()

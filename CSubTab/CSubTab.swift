@@ -29,6 +29,7 @@ class CSubTab: UIView {
                     itemBtn.setTitleColor(UIColor.init(red: 192.0 / 255.0, green: 192.0 / 255.0, blue: 192.0 / 255.0, alpha: 1), for: .normal)
                     itemBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
                     itemBtn.frame = CGRect(x: CGFloat(i) * itemWidth, y: 0, width: itemWidth, height: frame.height - indicateLineHeight)
+                    itemBtn.addTarget(self, action: #selector(itemBtnAction(sender:)), for: .touchUpInside)
                     scrollView.addSubview(itemBtn)
                 }
                 indicateLineLayer.frame = CGRect(x: 0, y: frame.height - indicateLineHeight, width: itemWidth * indicateWidthRate, height: indicateLineHeight)
@@ -55,7 +56,7 @@ class CSubTab: UIView {
     
     override var frame: CGRect {
         didSet {
-            super.frame = CGRect(origin: frame.origin, size: CGSize(width: frame.width, height: 36))
+            super.frame = CGRect(x: 0, y: isIPhoneX() ? 88 : 64, width: frame.width, height: 36)
         }
     }
     override func layoutSubviews() {
@@ -87,6 +88,16 @@ class CSubTab: UIView {
         UIColor.init(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1).setStroke()
         bottomLinePath.stroke()
         bottomLinePath.close()
+    }
+    
+    func isIPhoneX() -> Bool {
+        return UIScreen.main.bounds.height == 812.0
+    }
+    
+    @objc func itemBtnAction(sender: UIButton) {
+        
+        
+        
     }
 
 }
