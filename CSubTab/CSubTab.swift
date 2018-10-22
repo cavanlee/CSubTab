@@ -13,9 +13,11 @@ class CSubTab: UIView, UIScrollViewDelegate {
     var scrollView = UIScrollView.init()
     var indicateLineLayer = CAShapeLayer.init()
     
-    var itemWidth: CGFloat = UIScreen.main.bounds.width / 4
+    var itemWidth: CGFloat = UIScreen.main.bounds.width / 5
     let indicateLineHeight: CGFloat = 2.0
     let indicateWidthRate: CGFloat = 0.4 // 相对于Item width 的比例
+    
+    var selectedBtn = UIButton.init(type: .custom)
     
     var items: [String] = [] {
         didSet {
@@ -34,6 +36,9 @@ class CSubTab: UIView, UIScrollViewDelegate {
                     itemBtn.addTarget(self, action: #selector(itemBtnAction(sender:)), for: .touchUpInside)
                     scrollView.addSubview(itemBtn)
                 
+                    if i == 0 {
+                        selectedBtn = itemBtn
+                    }
                 }
 
                 
@@ -101,24 +106,53 @@ class CSubTab: UIView, UIScrollViewDelegate {
     
     @objc func itemBtnAction(sender: UIButton) {
         
-        scrollView.subviews.forEach { (view) in
-            if view.isKind(of: UIButton.self) {
-                let button: UIButton = view as! UIButton
-                button.isSelected = false
-            }
+        var offset = sender.center.x - frame.size.width * 0.5
+        let offset_max = scrollView.contentSize.width - frame.size.width
+        
+        if offset < 0 {
+            offset = 0
+        } else if (offset > offset_max){
+            offset = offset_max
         }
+        
+        scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
+        
+        selectedBtn.isSelected = false
+        let toSmallAnim = CABasicAnimation.init(keyPath: "transform.scale")
+        toSmallAnim.fromValue = 1.2
+        toSmallAnim.toValue = 1.0
+        toSmallAnim.isRemovedOnCompletion = false
+        toSmallAnim.repeatCount = 1
+        toSmallAnim.autoreverses = false
+        toSmallAnim.duration = 0.3
+        toSmallAnim.fillMode = kCAFillModeForwards
+        selectedBtn.titleLabel?.layer.add(toSmallAnim, forKey: "toSmallAnim")
+        
         sender.isSelected = !sender.isSelected
+        let toBigAnim = CABasicAnimation.init(keyPath: "transform.scale")
+        toBigAnim.fromValue = 1
+        toBigAnim.toValue = 1.2
+        toBigAnim.isRemovedOnCompletion = false
+        toBigAnim.repeatCount = 1
+        toBigAnim.autoreverses = false
+        toBigAnim.duration = 0.3
+        toBigAnim.fillMode = kCAFillModeForwards
+        sender.titleLabel?.layer.add(toBigAnim, forKey: "toBigAnim")
+        
         indicateLineLayer.position.x = sender.center.x
         
+
+        
+        selectedBtn = sender
     }
     
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let offsetX = scrollView.contentOffset.x
-        if offsetX.truncatingRemainder(dividingBy: itemWidth) > 0 {
-            scrollView.contentOffset.x = ceil(offsetX / itemWidth) * itemWidth
-        }
-    }
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        let offsetX = scrollView.contentOffset.x
+//        if offsetX.truncatingRemainder(dividingBy: itemWidth) > 0 {
+//            scrollView.contentOffset.x = ceil(offsetX / itemWidth) * itemWidth
+//        }
+//    }
     
     
 
