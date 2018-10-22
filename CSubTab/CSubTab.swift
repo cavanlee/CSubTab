@@ -111,7 +111,8 @@ class CSubTab: UIView, UIScrollViewDelegate {
         
         if offset < 0 {
             offset = 0
-        } else if (offset > offset_max){
+        }
+        if (offset > offset_max){
             offset = offset_max
         }
         
@@ -145,15 +146,7 @@ class CSubTab: UIView, UIScrollViewDelegate {
         
         selectedBtn = sender
     }
-    
-    
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        let offsetX = scrollView.contentOffset.x
-//        if offsetX.truncatingRemainder(dividingBy: itemWidth) > 0 {
-//            scrollView.contentOffset.x = ceil(offsetX / itemWidth) * itemWidth
-//        }
-//    }
-    
+
     
 
 }
