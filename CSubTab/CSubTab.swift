@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CSubTab: UIView, UIScrollViewDelegate {
+class CSubTab: UIView {
 
     var scrollView = UIScrollView.init()
     var indicateLineLayer = CAShapeLayer.init()
@@ -51,7 +51,6 @@ class CSubTab: UIView, UIScrollViewDelegate {
         backgroundColor = UIColor.white
         
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = self
         scrollView.bounces = false
         addSubview(scrollView)
         
