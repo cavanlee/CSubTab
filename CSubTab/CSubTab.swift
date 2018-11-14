@@ -105,6 +105,7 @@ class CSubTab: UIView {
     
     @objc func itemBtnAction(sender: UIButton) {
         
+        if selectedBtn == sender { return }
         var offset = sender.center.x - frame.size.width * 0.5
         let offset_max = scrollView.contentSize.width - frame.size.width
         
